@@ -13,6 +13,7 @@ const {
   crearUsuario,
   loginUsuario,
   revalidarToken,
+  obtenerUsuarios,
 } = require("../controllers/auth");
 
 router.post(
@@ -49,5 +50,7 @@ router.post(
 );
 
 router.get("/renew", validarJWT, revalidarToken);
+
+router.get("/obtenerUsuarios", obtenerUsuarios);
 
 module.exports = router;

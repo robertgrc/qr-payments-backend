@@ -14,6 +14,12 @@ const UsuarioSchema = Schema({
     type: String,
     required: true,
   },
+  state: {
+    type: Boolean,
+  },
+  salario: {
+    type: Number,
+  },
 });
 
 module.exports = model("Usuario", UsuarioSchema);

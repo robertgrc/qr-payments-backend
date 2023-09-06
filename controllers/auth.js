@@ -30,6 +30,8 @@ const crearUsuario = async (req, res = response) => {
       msg: "usuario creado con exito",
       uid: usuario.id,
       name: usuario.name,
+      state: usuario.state,
+      salario: usuario.salario,
       token,
     });
   } catch (error) {
@@ -95,8 +97,32 @@ const revalidarToken = async (req, res = response) => {
   });
 };
 
+const obtenerUsuarios = async (req, res) => {
+  try {
+    const usuarios = await Usuario.find(); // Esto busca todos los usuarios en tu base de datos
+
+    res.status(200).json({
+      ok: true,
+      msg: "Usuarios encontrados",
+      usuarios: usuarios.map((usuario) => ({
+        uid: usuario.id,
+        name: usuario.name,
+        state: usuario.state,
+        salario: usuario.salario,
+      })),
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor, hable con el Administrador",
+    });
+  }
+};
+
 module.exports = {
   crearUsuario,
   loginUsuario,
   revalidarToken,
+  obtenerUsuarios,
 };
