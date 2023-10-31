@@ -1,6 +1,61 @@
 const { response } = require("express");
 const Registro = require("../models/UserInfo");
 
+const getUserInfoByUserId = async (req, res = response) => {
+  const userId = req.params.userId; // Obtener el ID del usuario de los parámetros
+
+  try {
+    // Buscar registros de usuario que corresponden al ID de usuario
+    const registros = await Registro.find({ user: userId });
+
+    if (registros.length === 0) {
+      return res.status(404).json({
+        ok: false,
+        msg: "No se encontraron registros para este usuario",
+      });
+    }
+
+    res.json({
+      ok: true,
+      registros,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Hable con el administrador",
+    });
+  }
+};
+
+//*-------------------------------------
+// const getUserInfoByUserId = async (req, res = response) => {
+//   const idUsuario = req.params.idUsuario;
+
+//   try {
+//     const userInformation = await Registro.find({ idUsuario });
+
+//     if (userInformation.length === 0) {
+//       return res.status(404).json({
+//         ok: false,
+//         msg: "No se encontro userInformation con ese id de usuario",
+//       });
+//     }
+
+//     res.json({
+//       ok: true,
+//       userInformation,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({
+//       ok: false,
+//       msg: "Hable con el administrador. Problema al userInfo por ID",
+//     });
+//   }
+// };
+
+//*-----------------------------------
 const getRegistros = async (req, res = response) => {
   //verificar que tenga el evento
 
@@ -11,30 +66,6 @@ const getRegistros = async (req, res = response) => {
     desdeRegistro: true,
     registros,
   });
-};
-
-// Se tiene que pasar el mes 01= enero, 02=febrero
-const getRegistrosPorMesYAnio = async (req, res = response) => {
-  const { mes, anio } = req.params;
-
-  try {
-    const registros = await Registro.find({
-      fechaIngreso: {
-        $regex: `^${anio}-${mes}-\\d{2}`,
-      },
-    });
-
-    res.json({
-      ok: true,
-      registros,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      ok: false,
-      msg: "Error al obtener registros por mes y año",
-    });
-  }
 };
 
 const getRegistroById = async (req, res = response) => {
@@ -153,9 +184,9 @@ const deleteRegistro = async (req, res = response) => {
 
 module.exports = {
   getRegistros,
-  //   getRegistrosPorMesYAnio,
   getRegistroById,
   createRegistro,
+  getUserInfoByUserId,
   //   updateRegistro,
   //   deleteRegistro,
 };

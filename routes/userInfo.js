@@ -5,9 +5,9 @@ const { validarJWT } = require("../middlewares/validar-jwt");
 
 const {
   getRegistros,
-  //   getRegistrosPorMesYAnio,
   getRegistroById,
   createRegistro,
+  getUserInfoByUserId,
   //   updateRegistro,
   //   deleteRegistro,
 } = require("../controllers/userInfo");
@@ -18,5 +18,7 @@ const router = Router();
 router.get("/", getRegistros);
 router.get("/:id", getRegistroById);
 router.post("/", [validarJWT], createRegistro);
+
+router.get("/usuario/:userId", [validarJWT], getUserInfoByUserId);
 
 module.exports = router;
