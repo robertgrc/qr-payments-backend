@@ -14,6 +14,7 @@ const {
   loginUsuario,
   revalidarToken,
   obtenerUsuarios,
+  getUsuarioById,
 } = require("../controllers/auth");
 
 router.post(
@@ -29,6 +30,7 @@ router.post(
       "password",
       "La contraseña debe tener al menos 6 caracteres"
     ).isLength({ min: 6 }),
+    check("rol", "No es un rol valido").isIn(["ADMIN_ROLE", "USER_ROLE"]),
     validarCampos,
   ],
 
@@ -49,8 +51,10 @@ router.post(
   loginUsuario
 );
 
-router.get("/renew", validarJWT, revalidarToken);
+router.get("/renew", [validarJWT], revalidarToken);
 
-router.get("/obtenerUsuarios", obtenerUsuarios);
+router.get("/", [validarJWT], obtenerUsuarios);
+
+router.get("/:id", [validarJWT], getUsuarioById);
 
 module.exports = router;

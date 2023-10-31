@@ -8,7 +8,7 @@ const crearUsuario = async (req, res = response) => {
 
   try {
     let usuario = await Usuario.findOne({ email });
-    console.log(usuario);
+    console.log("nuevoUsuario***", usuario);
     if (usuario) {
       return res.status(400).json({
         ok: false,
@@ -32,6 +32,7 @@ const crearUsuario = async (req, res = response) => {
       name: usuario.name,
       state: usuario.state,
       salario: usuario.salario,
+      rol: usuario.rol,
       token,
     });
   } catch (error) {
@@ -71,6 +72,9 @@ const loginUsuario = async (req, res = response) => {
       ok: true,
       uid: usuario.id,
       name: usuario.name,
+      state: usuario.state,
+      salario: usuario.salario,
+      usuario: usuario.rol,
       msg: "Usuario Logeado con exito",
       token,
     });
@@ -120,9 +124,42 @@ const obtenerUsuarios = async (req, res) => {
   }
 };
 
+const getUsuarioById = async (req, res = response) => {
+  const usuarioId = req.params.id;
+
+  try {
+    const usuario = await Usuario.findById(usuarioId);
+
+    if (!usuario) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Usuario no encontrado",
+      });
+    }
+
+    res.status(200).json({
+      ok: true,
+      msg: "Usuario encontrado",
+      usuario: {
+        uid: usuario.id,
+        name: usuario.name,
+        state: usuario.state,
+        salario: usuario.salario,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el Administrador",
+    });
+  }
+};
+
 module.exports = {
   crearUsuario,
   loginUsuario,
   revalidarToken,
   obtenerUsuarios,
+  getUsuarioById,
 };

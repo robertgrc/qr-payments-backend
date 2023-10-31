@@ -16,9 +16,17 @@ const UsuarioSchema = Schema({
   },
   state: {
     type: Boolean,
+    required: true,
   },
   salario: {
     type: Number,
+    required: true,
+  },
+  rol: {
+    type: String,
+    required: true,
+    enum: ["ADMIN_ROLE", "USER_ROLE"],
+    default: "USER_ROLE",
   },
 });
 
