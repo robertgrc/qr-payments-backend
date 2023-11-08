@@ -28,34 +28,7 @@ const getUserInfoByUserId = async (req, res = response) => {
   }
 };
 
-//*-------------------------------------
-// const getUserInfoByUserId = async (req, res = response) => {
-//   const idUsuario = req.params.idUsuario;
-
-//   try {
-//     const userInformation = await Registro.find({ idUsuario });
-
-//     if (userInformation.length === 0) {
-//       return res.status(404).json({
-//         ok: false,
-//         msg: "No se encontro userInformation con ese id de usuario",
-//       });
-//     }
-
-//     res.json({
-//       ok: true,
-//       userInformation,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({
-//       ok: false,
-//       msg: "Hable con el administrador. Problema al userInfo por ID",
-//     });
-//   }
-// };
-
-//*-----------------------------------
+//*----------------------------------
 const getRegistros = async (req, res = response) => {
   //verificar que tenga el evento
 
@@ -187,6 +160,6 @@ module.exports = {
   getRegistroById,
   createRegistro,
   getUserInfoByUserId,
-  //   updateRegistro,
-  //   deleteRegistro,
+  deleteRegistro,
+  updateRegistro,
 };

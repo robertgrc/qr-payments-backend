@@ -18,6 +18,9 @@ const UserInfoSchema = Schema({
   direccion: {
     type: String,
   },
+  rni: {
+    type: String,
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",

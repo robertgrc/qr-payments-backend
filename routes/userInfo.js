@@ -8,8 +8,8 @@ const {
   getRegistroById,
   createRegistro,
   getUserInfoByUserId,
-  //   updateRegistro,
-  //   deleteRegistro,
+  deleteRegistro,
+  updateRegistro,
 } = require("../controllers/userInfo");
 
 const router = Router();
@@ -18,7 +18,11 @@ const router = Router();
 router.get("/", getRegistros);
 router.get("/:id", getRegistroById);
 router.post("/", [validarJWT], createRegistro);
+router.get("/usuario/:userId", getUserInfoByUserId);
 
-router.get("/usuario/:userId", [validarJWT], getUserInfoByUserId);
+//Actualizar un registro
+router.put("/:id", [validarJWT], updateRegistro);
+
+router.delete("/:id", [validarJWT], deleteRegistro);
 
 module.exports = router;
