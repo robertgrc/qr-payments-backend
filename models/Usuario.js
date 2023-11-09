@@ -14,14 +14,6 @@ const UsuarioSchema = Schema({
     type: String,
     required: true,
   },
-  state: {
-    type: Boolean,
-    required: true,
-  },
-  salario: {
-    type: Number,
-    required: true,
-  },
   rol: {
     type: String,
     required: true,
