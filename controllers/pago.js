@@ -1,6 +1,32 @@
 const { response } = require("express");
 const Pago = require("../models/Pago");
 
+const getPagoById = async (req, res = response) => {
+  try {
+    const pagoId = req.params.pagoId;
+    console.log("PagoID:", pagoId);
+    const pago = await Pago.findById(pagoId);
+
+    if (!pago) {
+      return res.status(404).json({
+        ok: false,
+        msg: "No se encontró el pago con el ID proporcionado",
+      });
+    }
+
+    res.json({
+      ok: true,
+      pago,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Hable con el administrador. Problema en el controlador getPagoById",
+    });
+  }
+};
+
 const getPagosByUserId = async (req, res = response) => {
   try {
     const userId = req.params.userId;
@@ -75,5 +101,6 @@ module.exports = {
   crearPago,
   obtenerPagos,
   getPagosByUserId,
+  getPagoById,
   // Agrega aquí otros controladores según tus necesidades
 };

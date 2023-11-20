@@ -30,8 +30,6 @@ const crearUsuario = async (req, res = response) => {
       msg: "usuario creado con exito",
       uid: usuario.id,
       name: usuario.name,
-      state: usuario.state,
-      salario: usuario.salario,
       rol: usuario.rol,
       token,
     });
@@ -46,7 +44,6 @@ const crearUsuario = async (req, res = response) => {
 
 const loginUsuario = async (req, res = response) => {
   const { email, password } = req.body;
-
   try {
     const usuario = await Usuario.findOne({ email });
     console.log(usuario);
@@ -72,9 +69,8 @@ const loginUsuario = async (req, res = response) => {
       ok: true,
       uid: usuario.id,
       name: usuario.name,
-      state: usuario.state,
-      salario: usuario.salario,
       usuario: usuario.rol,
+      fechaCreacionUsuario: usuario.fechaCreacionRegistro,
       msg: "Usuario Logeado con exito",
       token,
     });
@@ -143,8 +139,7 @@ const getUsuarioById = async (req, res = response) => {
       usuario: {
         uid: usuario.id,
         name: usuario.name,
-        state: usuario.state,
-        salario: usuario.salario,
+        fechaCreacionUsuario: usuario.fechaCreacionRegistro,
       },
     });
   } catch (error) {

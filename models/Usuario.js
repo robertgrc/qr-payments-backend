@@ -14,6 +14,10 @@ const UsuarioSchema = Schema({
     type: String,
     required: true,
   },
+  fechaCreacionRegistro: {
+    type: Date,
+    required: true,
+  },
   rol: {
     type: String,
     required: true,

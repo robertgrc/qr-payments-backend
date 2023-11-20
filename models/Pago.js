@@ -5,8 +5,12 @@ const PagoSchema = Schema({
     type: String,
     required: true,
   },
-  fecha: {
+  fechaPago: {
     type: Date,
+    required: true,
+  },
+  mesPago: {
+    type: String,
     required: true,
   },
   monto: {
