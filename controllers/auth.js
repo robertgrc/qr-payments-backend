@@ -71,6 +71,7 @@ const loginUsuario = async (req, res = response) => {
       name: usuario.name,
       usuario: usuario.rol,
       fechaCreacionUsuario: usuario.fechaCreacionRegistro,
+      email: usuario.email,
       msg: "Usuario Logeado con exito",
       token,
     });
