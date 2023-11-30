@@ -1,3 +1,4 @@
+const axios = require("axios");
 const { response } = require("express");
 const Pago = require("../models/Pago");
 
@@ -97,10 +98,27 @@ const obtenerPagos = async (req, res = response) => {
   }
 };
 
+const getImageQr = async (req, res = response) => {
+  try {
+    // Lógica para obtener una imagen aleatoria (puedes cambiar la URL según tus necesidades)
+    const response = await axios.get("https://source.unsplash.com/random");
+
+    // Puedes almacenar la URL de la imagen en tu base de datos o simplemente enviarla al cliente
+    res.json({
+      ok: true,
+      imageUrl: response.request.res.responseUrl,
+    });
+  } catch (error) {
+    console.error("Error al obtener la imagen:", error.message);
+    res.status(500).json({ ok: false, error: "Error interno del servidor" });
+  }
+};
+
 module.exports = {
   crearPago,
   obtenerPagos,
   getPagosByUserId,
   getPagoById,
+  getImageQr,
   // Agrega aquí otros controladores según tus necesidades
 };
